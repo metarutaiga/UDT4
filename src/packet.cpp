@@ -174,7 +174,7 @@ CPacket::~CPacket()
 
 int CPacket::getLength() const
 {
-   return m_PacketVector[1].iov_len;
+   return static_cast<int>(m_PacketVector[1].iov_len);
 }
 
 void CPacket::setLength(int len)

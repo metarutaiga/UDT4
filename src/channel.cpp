@@ -253,7 +253,7 @@ int CChannel::sendto(const sockaddr* addr, CPacket& packet) const
       mh.msg_controllen = 0;
       mh.msg_flags = 0;
 
-      int res = ::sendmsg(m_iSocket, &mh, 0);
+      int res = static_cast<int>(::sendmsg(m_iSocket, &mh, 0));
    #else
       DWORD size = CPacket::m_iPktHdrSize + packet.getLength();
       int addrsize = m_iSockAddrSize;
@@ -302,7 +302,7 @@ int CChannel::recvfrom(sockaddr* addr, CPacket& packet) const
          ::select(m_iSocket+1, &set, NULL, &set, &tv);
       #endif
 
-      int res = ::recvmsg(m_iSocket, &mh, 0);
+      int res = static_cast<int>(::recvmsg(m_iSocket, &mh, 0));
    #else
       DWORD size = CPacket::m_iPktHdrSize + packet.getLength();
       DWORD flag = 0;
